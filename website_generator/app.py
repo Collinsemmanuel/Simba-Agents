@@ -1,3 +1,4 @@
+# lawrence wafula
 from flask import Flask, request, render_template, send_file, jsonify
 import os
 import requests
@@ -10,9 +11,9 @@ app = Flask(__name__)
 if not os.path.exists('generated_sites'):
     os.makedirs('generated_sites')
 
-# === Replace with your real API KEY ===
+# Api key configuration
 API_KEY = 'api ...'
-API_URL = 'https://api.deepseek.com/v1/chat/completions'  # Example, adjust if needed
+API_URL = 'https://api.deepseek.com/v1/chat/completions'
 
 @app.route('/')
 def index():
