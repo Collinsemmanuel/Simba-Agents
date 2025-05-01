@@ -1,8 +1,11 @@
+# lawrence wafula
 import os
 import asyncio
 import logging
+from typing import Literal
 from dotenv import load_dotenv
-from pydantic_ai import Agent, Message
+from pydantic_ai import Agent
+from pydantic import BaseModel
 import random
 
 # Load environment variables
@@ -10,6 +13,12 @@ load_dotenv()
 
 # Initialize logging
 logging.basicConfig(filename='sana_ai.log', level=logging.INFO)
+
+# make the Message class
+class Message(BaseModel):
+    role: Literal["system", "user", "assistant"]
+    content: str
+
 
 # Initialize the health-focused AI agent
 health_agent = Agent(
