@@ -1,4 +1,4 @@
-#Joan Chepkwony Cryptocurrency Agent
+#Joan Chepkwony's Cryptocurrency Agent
 import requests
 import pandas as pd
 import time
