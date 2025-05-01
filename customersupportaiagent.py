@@ -1,4 +1,5 @@
-import os
+ # Rukia Hassan customer support AI agent 
+ import os
 from dotenv import load_dotenv
 from groq import Groq
 
