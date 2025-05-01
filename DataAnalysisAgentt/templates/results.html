@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Results</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Analysis Results</h1>
+
+        <!-- Basic Statistics -->
+        {% if insights.get('basic_stats') %}
+        <h2>Basic Statistics</h2>
+        <div class="stats">
+            {{ insights['basic_stats']|safe }}
+        </div>
+        {% endif %}
+
+        <!-- Pairplot -->
+        {% if insights.get('pairplot') %}
+        <h2>Pairplot</h2>
+        <img src="data:image/png;base64,{{ insights['pairplot'] }}" alt="Pairplot">
+        {% endif %}
+
+        <!-- Categorical Summary -->
+        {% if insights.get('categorical_summary') %}
+        <h2>Categorical Summary</h2>
+        <ul>
+            {% for col, summary in insights['categorical_summary'].items() %}
+            <li>
+                <strong>{{ col }}</strong>: 
+                <ul>
+                    {% for key, value in summary.items() %}
+                    <li>{{ key }}: {{ value }}</li>
+                    {% endfor %}
+                </ul>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        <!-- Agent Summary -->
+        {% if insights.get('agent_summary') and (insights['agent_summary'].get('insights') or insights['agent_summary'].get('recommendations')) %}
+<h2>Agent Summary</h2>
+<div class="agent-summary">
+    {% if insights['agent_summary'].get('insights') %}
+    <h3>Insights from the Dataset</h3>
+    <ul>
+        {% for insight in insights['agent_summary']['insights'] %}
+        <li>{{ insight }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% if insights['agent_summary'].get('recommendations') %}
+    <h3>Actionable Recommendations</h3>
+    <ul>
+        {% for recommendation in insights['agent_summary']['recommendations'] %}
+        <li>{{ recommendation }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>
+{% else %}
+<h2>Agent Summary</h2>
+<p>No insights or recommendations were generated for this dataset.</p>
+{% endif %}
+
+        <!-- Additional Insights -->
+        {% if insights.get('additional_insights') %}
+        <h2>Additional Insights</h2>
+        <ul>
+            {% for insight in insights['additional_insights'] %}
+            <li>{{ insight }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        <a href="/" class="btn">Upload Another File</a>
+    </div>
+</body>
+</html>
